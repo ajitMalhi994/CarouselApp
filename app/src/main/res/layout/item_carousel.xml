@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:elevation="@dimen/dimen_3dp"
+    android:padding="@dimen/padding_3dp"
+    app:cardCornerRadius="@dimen/dimen_9dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivCarousel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"/>
+
+</androidx.cardview.widget.CardView>
