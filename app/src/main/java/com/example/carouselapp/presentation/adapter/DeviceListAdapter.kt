@@ -10,7 +10,7 @@ import com.example.carouselapp.utils.loadImageFromUrl
 import com.example.data.entity.DeviceDescription
 
 class DeviceListAdapter :
-    ListAdapter<DeviceDescription, DeviceListAdapter.ViewHolder>(CatalogRangeDiff()) {
+    ListAdapter<DeviceDescription, DeviceListAdapter.ViewHolder>(DeviceListDiff()) {
 
     inner class ViewHolder(private val binding: ItemDeviceInfoBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -23,8 +23,11 @@ class DeviceListAdapter :
         }
     }
 
-    class CatalogRangeDiff : DiffUtil.ItemCallback<DeviceDescription>() {
-        override fun areItemsTheSame(oldItem: DeviceDescription, newItem: DeviceDescription): Boolean {
+    class DeviceListDiff : DiffUtil.ItemCallback<DeviceDescription>() {
+        override fun areItemsTheSame(
+            oldItem: DeviceDescription,
+            newItem: DeviceDescription
+        ): Boolean {
             return oldItem.title.contentEquals(newItem.title)
         }
 

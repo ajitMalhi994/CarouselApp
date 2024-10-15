@@ -27,7 +27,8 @@ class MainViewModel @Inject constructor(
     private val _carouselItemList = MutableStateFlow<Resource<List<Device>>>(Resource.loading())
     val carouselItemList get() = _carouselItemList.asStateFlow()
 
-    private val _deviceItemList = MutableStateFlow<Resource<List<DeviceDescription>?>>(Resource.loading())
+    private val _deviceItemList =
+        MutableStateFlow<Resource<List<DeviceDescription>?>>(Resource.loading())
     val deviceItemList get() = _deviceItemList.asStateFlow()
 
     private var currentCarouselForDisplay = -1
@@ -35,7 +36,7 @@ class MainViewModel @Inject constructor(
     fun onCarouselChanged(index: Int) {
         currentCarouselForDisplay = index
         _searchQuery.value = ""
-        getCatalogRange()
+        getDeviceList()
     }
 
     fun onSearchValueChange(query: String) {
@@ -44,10 +45,10 @@ class MainViewModel @Inject constructor(
     }
 
     private fun onSearchTriggered() {
-        getCatalogRange()
+        getDeviceList()
     }
 
-    private fun getCatalogList() = viewModelScope.launch {
+    private fun getCarouselItems() = viewModelScope.launch {
         carouselItemsUseCase.invoke(Unit).catch {
             _carouselItemList.emit(Resource.error(it))
         }.collect {
@@ -55,12 +56,12 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private fun getCatalogRange() = viewModelScope.launch {
-        if (currentCarouselForDisplay < 0 || _carouselItemList.value.data?.isNotEmpty() == true) {
+    private fun getDeviceList() = viewModelScope.launch {
+        if (currentCarouselForDisplay < 0 || _carouselItemList.value.data?.isEmpty() == true) {
             return@launch
         }
-        val catalogType = _carouselItemList.value.data?.get(currentCarouselForDisplay)?.type
-        val param = Params(catalogType, searchQuery.value)
+        val deviceType = _carouselItemList.value.data?.get(currentCarouselForDisplay)?.type
+        val param = Params(deviceType, searchQuery.value)
         listItemsUseCase.invoke(param).catch {
             _deviceItemList.emit(Resource.error(it))
         }.collect {
@@ -69,6 +70,6 @@ class MainViewModel @Inject constructor(
     }
 
     init {
-        getCatalogList()
+        getCarouselItems()
     }
 }

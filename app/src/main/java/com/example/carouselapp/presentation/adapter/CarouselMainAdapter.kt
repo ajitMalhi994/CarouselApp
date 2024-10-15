@@ -9,7 +9,7 @@ import com.example.carouselapp.databinding.ItemCarouselBinding
 import com.example.carouselapp.utils.loadImageFromUrl
 import com.example.data.entity.Device
 
-class CarouselMainAdapter : ListAdapter<Device, CarouselMainAdapter.ViewHolder>(CatalogDiff()) {
+class CarouselMainAdapter : ListAdapter<Device, CarouselMainAdapter.ViewHolder>(DeviceDiff()) {
 
     inner class ViewHolder(private val binding: ItemCarouselBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -19,7 +19,7 @@ class CarouselMainAdapter : ListAdapter<Device, CarouselMainAdapter.ViewHolder>(
         }
     }
 
-    class CatalogDiff : DiffUtil.ItemCallback<Device>() {
+    class DeviceDiff : DiffUtil.ItemCallback<Device>() {
         override fun areItemsTheSame(oldItem: Device, newItem: Device): Boolean {
             return oldItem.type.ordinal == newItem.type.ordinal
         }

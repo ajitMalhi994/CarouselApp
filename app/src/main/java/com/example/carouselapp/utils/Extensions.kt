@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.view.View
 import android.widget.ImageView
+import com.example.carouselapp.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,6 +26,7 @@ fun View.visibleOrGone(visible: Boolean) {
 }
 
 fun ImageView.loadImageFromUrl(url: String) {
+    this.setImageResource(R.drawable.loader)
     CoroutineScope(Dispatchers.Main).launch {
         val bitmap = withContext(Dispatchers.IO) {
             downloadImage(url)

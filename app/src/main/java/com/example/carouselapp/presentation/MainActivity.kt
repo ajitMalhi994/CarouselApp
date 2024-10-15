@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
-    lateinit var binding : ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
     private val viewModel by viewModels<MainViewModel>()
 
     private val carouselAdapter = CarouselMainAdapter()
@@ -76,7 +76,7 @@ class MainActivity : BaseActivity() {
     private fun setUpObservers() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                with(viewModel){
+                with(viewModel) {
                     launch {
                         searchQuery.collectLatest {
                             binding.searchText.setQuery(it, false)
@@ -93,8 +93,8 @@ class MainActivity : BaseActivity() {
                             with(binding.errorLayout) {
                                 root.visibleOrGone(it.data.isNullOrEmpty())
                                 tvStatus.text =
-                                    if (it.data.isNullOrEmpty()) getString(R.string.loading) else getString(
-                                        R.string.failed
+                                    if (it.data.isNullOrEmpty()) getString(R.string.no_results) else getString(
+                                        R.string.loading
                                     )
                             }
                         }
